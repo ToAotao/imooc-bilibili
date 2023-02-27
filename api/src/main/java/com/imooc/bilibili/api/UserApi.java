@@ -24,4 +24,10 @@ public class UserApi {
         return JsonResponse.success();
     }
 
+    @PostMapping("/user-tokens")
+    public JsonResponse<String> login(@RequestBody User user) {
+        String token = userService.login(user);
+        return new JsonResponse<>(token);
+    }
+
 }
