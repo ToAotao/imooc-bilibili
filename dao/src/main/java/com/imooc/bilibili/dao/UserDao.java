@@ -4,6 +4,9 @@ import com.imooc.bilibili.domain.User;
 import com.imooc.bilibili.domain.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+import java.util.Set;
+
 
 @Mapper
 public interface UserDao {
@@ -13,4 +16,10 @@ public interface UserDao {
     User getUserById(Long id);
 
     UserInfo getUserInfoByUserId(Long userId);
+
+    Integer updateUserInfos(UserInfo userInfo);
+
+    Integer updateUsers(User user);
+
+    List<UserInfo> getUserInfoByUserIds(Set<Long> userIdList);
 }

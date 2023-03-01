@@ -3,16 +3,15 @@ package com.imooc.bilibili.domain;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
+
 @Data
-public class UserInfo {
+public class FollowingGroup {
     private Long id;
     private Long userId;
-    private String nick;
-    private String avatar;
-    private String sign;
-    private String gender;
-    private String birth;
+    private String name;
+    private String type;
     private Date createTime;
     private Date updateTime;
-    private Boolean followed;
+    private List<UserInfo> followingUserInfoList;
 }
