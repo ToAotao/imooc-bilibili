@@ -1,9 +1,11 @@
 package com.imooc.bilibil.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.imooc.bilibil.service.util.MD5Util;
 import com.imooc.bilibil.service.util.RSAUtil;
 import com.imooc.bilibil.service.util.TokenUtil;
 import com.imooc.bilibili.dao.UserDao;
+import com.imooc.bilibili.domain.PageResult;
 import com.imooc.bilibili.domain.User;
 import com.imooc.bilibili.domain.UserInfo;
 import com.imooc.bilibili.domain.constant.UserConstant;
@@ -13,6 +15,7 @@ import jdk.nashorn.internal.parser.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -115,5 +118,18 @@ public class UserService {
 
     public List<UserInfo> getUserInfoByUserIds(Set<Long> userIdList) {
         return userDao.getUserInfoByUserIds(userIdList);
+    }
+
+    public PageResult<UserInfo> pageListUserInfos(JSONObject params) {
+        Integer no = params.getInteger("no");
+        Integer size = params.getInteger("size");
+        params.put("start", (no - 1) * size);
+        params.put("limit", size);
+        Integer total = userDao.pageCountUserInfos(params);
+        List<UserInfo> list = new ArrayList<>();
+        if (total > 0) {
+            list = userDao.pageListUserInfos(params);
+        }
+        return  new PageResult<>(total, list);
     }
 }
