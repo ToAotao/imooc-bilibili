@@ -1,9 +1,9 @@
 package com.imooc.bilibili.api;
 
 import com.alibaba.fastjson.JSONObject;
-import com.imooc.bilibil.service.UserFollowingService;
-import com.imooc.bilibil.service.UserService;
-import com.imooc.bilibil.service.util.RSAUtil;
+import com.imooc.bilibili.service.UserFollowingService;
+import com.imooc.bilibili.service.UserService;
+import com.imooc.bilibili.service.util.RSAUtil;
 import com.imooc.bilibili.api.support.UserSupport;
 import com.imooc.bilibili.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;

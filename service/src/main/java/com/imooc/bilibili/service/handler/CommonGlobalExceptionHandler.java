@@ -1,4 +1,4 @@
-package com.imooc.bilibil.service.handler;
+package com.imooc.bilibili.service.handler;
 
 import com.imooc.bilibili.domain.JsonResponse;
 import com.imooc.bilibili.domain.exception.ConditionException;

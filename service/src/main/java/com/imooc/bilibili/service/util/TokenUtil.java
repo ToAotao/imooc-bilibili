@@ -1,4 +1,4 @@
-package com.imooc.bilibil.service.util;
+package com.imooc.bilibili.service.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -16,7 +16,7 @@ public class TokenUtil {
         Algorithm algorithm = Algorithm.RSA256(RSAUtil.getPublicKey(), RSAUtil.getPrivateKey());
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
-        calendar.add(Calendar.SECOND, 30);
+        calendar.add(Calendar.HOUR, 1);
         //JWT has 3 parts, header(algorithm)-payload(information)-signature
         return JWT.create()
                 .withKeyId(String.valueOf(userId))

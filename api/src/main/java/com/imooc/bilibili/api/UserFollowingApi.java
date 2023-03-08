@@ -1,6 +1,6 @@
 package com.imooc.bilibili.api;
 
-import com.imooc.bilibil.service.UserFollowingService;
+import com.imooc.bilibili.service.UserFollowingService;
 import com.imooc.bilibili.api.support.UserSupport;
 import com.imooc.bilibili.domain.FollowingGroup;
 import com.imooc.bilibili.domain.JsonResponse;

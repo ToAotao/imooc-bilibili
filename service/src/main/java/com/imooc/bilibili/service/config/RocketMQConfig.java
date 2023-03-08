@@ -1,7 +1,13 @@
-package com.imooc.bilibil.service.config;
+package com.imooc.bilibili.service.config;
 
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.imooc.bilibili.domain.UserFollowing;
+import com.imooc.bilibili.domain.UserMoment;
 import com.imooc.bilibili.domain.constant.UserMomentConstant;
+import com.imooc.bilibili.service.UserFollowingService;
+import io.netty.util.internal.StringUtil;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
@@ -16,6 +22,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
@@ -25,24 +32,45 @@ public class RocketMQConfig {
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
-
-    @Bean("momentProducer")
-    public DefaultMQProducer momentProducer() throws Exception {
+    @Autowired
+    private UserFollowingService userFollowingService;
+    @Bean("momentsProducer")
+    public DefaultMQProducer momentsProducer() throws Exception {
         DefaultMQProducer producer = new DefaultMQProducer(UserMomentConstant.GROUP_MOMENT);
         producer.setNamesrvAddr(nameServerAddr);
         producer.start();
         return producer;
     }
-    @Bean("momentConsumer")
+    @Bean("momentsConsumer")
     public DefaultMQPushConsumer momentsConsumer() throws Exception{
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(UserMomentConstant.GROUP_MOMENT);
         consumer.setNamesrvAddr(nameServerAddr);
         consumer.subscribe(UserMomentConstant.TOPIC_MOMENT, "*");
+        //Listener
         consumer.registerMessageListener(new MessageListenerConcurrently() {
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context){
-                for (MessageExt msg : msgs) {
-                    System.out.println(msg);
+                MessageExt msg = msgs.get(0);
+                if (msg == null) {
+                    return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+                }
+                String bodyStr = new String(msg.getBody());
+                //convert bytes array to UserMoment
+                UserMoment userMoment = JSONObject.toJavaObject(JSONObject.parseObject(bodyStr), UserMoment.class);
+                Long userId = userMoment.getUserId();
+                userFollowingService.getUserFans(userId);
+                List<UserFollowing> fanList = userFollowingService.getUserFans(userId);
+                for (UserFollowing fan : fanList) {
+                    String key = "subscribed-" + fan.getUserId();
+                    String subscribedListStr = redisTemplate.opsForValue().get(key);
+                    List<UserMoment> subscribedList;
+                    if (StringUtil.isNullOrEmpty(subscribedListStr)){
+                        subscribedList = new ArrayList<>();
+                    }else{
+                        subscribedList = JSONArray.parseArray(subscribedListStr, UserMoment.class);
+                    }
+                    subscribedList.add(userMoment);
+                    redisTemplate.opsForValue().set(key, JSONObject.toJSONString(subscribedList));
                 }
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }

@@ -1,4 +1,4 @@
-package com.imooc.bilibil.service.config;
+package com.imooc.bilibili.service.config;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;

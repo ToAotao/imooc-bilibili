@@ -1,4 +1,4 @@
-package com.imooc.bilibil.service.util;
+package com.imooc.bilibili.service.util;
 
 import org.apache.commons.codec.binary.Base64;
 

@@ -1,6 +1,6 @@
 package com.imooc.bilibili.api.support;
 
-import com.imooc.bilibil.service.util.TokenUtil;
+import com.imooc.bilibili.service.util.TokenUtil;
 import com.imooc.bilibili.domain.exception.ConditionException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;

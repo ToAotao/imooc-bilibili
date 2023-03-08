@@ -1,9 +1,9 @@
-package com.imooc.bilibil.service;
+package com.imooc.bilibili.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.imooc.bilibil.service.util.MD5Util;
-import com.imooc.bilibil.service.util.RSAUtil;
-import com.imooc.bilibil.service.util.TokenUtil;
+import com.imooc.bilibili.service.util.MD5Util;
+import com.imooc.bilibili.service.util.RSAUtil;
+import com.imooc.bilibili.service.util.TokenUtil;
 import com.imooc.bilibili.dao.UserDao;
 import com.imooc.bilibili.domain.PageResult;
 import com.imooc.bilibili.domain.User;
@@ -11,7 +11,6 @@ import com.imooc.bilibili.domain.UserInfo;
 import com.imooc.bilibili.domain.constant.UserConstant;
 import com.imooc.bilibili.domain.exception.ConditionException;
 import com.mysql.cj.util.StringUtils;
-import jdk.nashorn.internal.parser.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.locks.Condition;
 
 @Service
 public class UserService {

@@ -21,8 +21,8 @@
         insert into
             t_following_group(
                 userId,
-                'name',
-                'type',
+                `name`,
+                `type`,
                 createTime
             )values(
                 #{userId},

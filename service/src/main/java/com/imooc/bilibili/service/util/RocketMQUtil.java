@@ -1,4 +1,4 @@
-package com.imooc.bilibil.service.util;
+package com.imooc.bilibili.service.util;
 
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendCallback;

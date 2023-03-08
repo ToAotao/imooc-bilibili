@@ -1,6 +1,5 @@
-package com.imooc.bilibil.service;
+package com.imooc.bilibili.service;
 
-import com.imooc.bilibili.dao.FollowingGroupDao;
 import com.imooc.bilibili.dao.UserFollowingDao;
 import com.imooc.bilibili.domain.FollowingGroup;
 import com.imooc.bilibili.domain.User;
