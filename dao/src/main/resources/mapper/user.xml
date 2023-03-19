@@ -117,7 +117,7 @@
                 </foreach>
             </if>
     </select>
-    <select id="pageCountUserInfo" parameterType="java.util.Map" resultType="java.lang.Integer">
+    <select id="pageCountUserInfos" parameterType="java.util.Map" resultType="java.lang.Integer">
         select
             count(1)
         from
@@ -128,7 +128,7 @@
                 and nick like '%${nick}%}'
             </if>
     </select>
-    <select id="pageListUserInfo" parameterType="java.util.Map" resultType="com.imooc.bilibili.domain.UserInfo">
+    <select id="pageListUserInfos" parameterType="java.util.Map" resultType="com.imooc.bilibili.domain.UserInfo">
         select
             *
         from
@@ -140,5 +140,33 @@
             </if>
         order by id desc
         limit #{start}, #{limit}
+    </select>
+
+    <delete id="deleteRefreshToken">
+        delete from
+            t_refresh_token
+        where
+            refreshToken = #{refreshToken}
+    </delete>
+    <insert id="addRefreshToken">
+        insert into
+            t_refresh_token(
+                refreshToken,
+                userId,
+                createTime
+            )values(
+                #{refreshToken},
+                #{userId},
+                #{createTime}
+            )
+    </insert>
+
+    <select id="getRefreshTokenDetail" parameterType="java.lang.String" resultType="com.imooc.bilibili.domain.RefreshTokenDetail">
+        select
+            *
+        from
+            t_refresh_token
+        where
+            refreshToken = #{refreshToken}
     </select>
 </mapper>

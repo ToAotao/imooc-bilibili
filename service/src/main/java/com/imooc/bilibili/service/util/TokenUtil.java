@@ -17,7 +17,7 @@ public class TokenUtil {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.HOUR, 1);
-        //JWT has 3 parts, header(algorithm)-payload(information)-signature
+        //JWT(Json web Token)has 3 parts, header(algorithm)-payload(information)-signature
         return JWT.create()
                 .withKeyId(String.valueOf(userId))
                 .withIssuer(ISSUER)
@@ -37,5 +37,18 @@ public class TokenUtil {
             throw new ConditionException("Illegal User Token");
         }
 
+    }
+
+    public static String generateRefreshToken(Long userId) throws Exception{
+        Algorithm algorithm = Algorithm.RSA256(RSAUtil.getPublicKey(), RSAUtil.getPrivateKey());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DAY_OF_MONTH, 7);
+        //JWT has 3 parts, header(algorithm)-payload(information)-signature
+        return JWT.create()
+                .withKeyId(String.valueOf(userId))
+                .withIssuer(ISSUER)
+                .withExpiresAt(calendar.getTime())
+                .sign(algorithm);
     }
 }
