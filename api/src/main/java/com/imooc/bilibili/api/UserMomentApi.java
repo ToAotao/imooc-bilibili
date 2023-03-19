@@ -4,6 +4,7 @@ import com.imooc.bilibili.api.support.UserSupport;
 import com.imooc.bilibili.domain.JsonResponse;
 import com.imooc.bilibili.domain.UserMoment;
 import com.imooc.bilibili.domain.annotation.ApiLimitedRole;
+import com.imooc.bilibili.domain.annotation.DataLimited;
 import com.imooc.bilibili.domain.auth.AuthRole;
 import com.imooc.bilibili.domain.constant.AuthRoleConstant;
 import com.imooc.bilibili.service.UserMomentsService;
@@ -23,6 +24,7 @@ public class UserMomentApi {
     private UserSupport userSupport;
     //userMoment passed in with type and contentId
     @ApiLimitedRole(limitedRoleCodeList = {AuthRoleConstant.ROLE_CODE_LV0})
+    @DataLimited
     @PostMapping("/user-moments")
     public JsonResponse<String> addUserMoments(@RequestBody UserMoment userMoment) throws Exception{
         Long userId = userSupport.getCurrentUserId();

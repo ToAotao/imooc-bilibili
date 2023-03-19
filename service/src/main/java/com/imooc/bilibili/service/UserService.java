@@ -1,6 +1,7 @@
 package com.imooc.bilibili.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.imooc.bilibili.domain.auth.UserAuthorities;
 import com.imooc.bilibili.service.util.MD5Util;
 import com.imooc.bilibili.service.util.RSAUtil;
 import com.imooc.bilibili.service.util.TokenUtil;
@@ -23,6 +24,8 @@ import java.util.Set;
 public class UserService {
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private UserAuthService userAuthService;
     public void addUser(User user) {
         String phone = user.getPhone();
         if(StringUtils.isNullOrEmpty(phone)) {
@@ -56,6 +59,8 @@ public class UserService {
         userInfo.setGender(UserConstant.GENDER_MALE);
         userInfo.setCreateTime(now);
         userDao.addUserInfo(userInfo);
+        //add default user role
+        userAuthService.addUserDefaultRole(user.getId());
     }
     public User getUserByPhone(String phone){
         return userDao.getUserByPhone(phone);
