@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 @Mapper
-public interface AuthElementOperationDao {
+public interface AuthRoleElementOperationDao {
     public List<AuthRoleElementOperation> getRoleElementOperationsByRoleIds(@Param("roleIdSet") Set<Long> roleIdSet);
 }

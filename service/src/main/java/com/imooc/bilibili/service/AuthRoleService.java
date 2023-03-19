@@ -18,7 +18,7 @@ public class AuthRoleService {
         return authRoleElementOperationService.getRoleElementOperationsByRoleIds(roleIdSet);
 
     }
-    public List<AuthRoleMenu> getAuthRoleMenuByRoleIds(Set<Long> roleIdSet) {
-        return authRoleMenuService.getAuthRoleMenuByRoleIds(roleIdSet);
+    public List<AuthRoleMenu> getAuthRoleMenusByRoleIds(Set<Long> roleIdSet) {
+        return authRoleMenuService.getAuthRoleMenusByRoleIds(roleIdSet);
     }
 }

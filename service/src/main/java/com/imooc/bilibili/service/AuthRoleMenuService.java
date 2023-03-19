@@ -12,7 +12,7 @@ import java.util.Set;
 public class AuthRoleMenuService {
     @Autowired
     private AuthRoleMenuDao authRoleMenuDao;
-    public List<AuthRoleMenu> getAuthRoleMenuByRoleIds(Set<Long> roleIdSet) {
-        return authRoleMenuDao.getAuthRoleMenuByRoleIds(roleIdSet);
+    public List<AuthRoleMenu> getAuthRoleMenusByRoleIds(Set<Long> roleIdSet) {
+        return authRoleMenuDao.getAuthRoleMenusByRoleIds(roleIdSet);
     }
 }
